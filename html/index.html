@@ -1,0 +1,40 @@
+<!-- NSSK认证协议模拟 -->
+<!-- @author: zhengxiaoyao0716 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="Keywords" content="NSSK protocol" />
+    <meta name="Description" content="NSSK protocol emulate(client)." />
+    <link rel="shortcut icon" href="http://os.zheng0716.com/static/image/favicon.ico" />
+    <title>NSSK认证协议模拟</title>
+    <link href="./static/css/base.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="body">
+        <div class="titlebar">
+            <p id="title">
+                NSSK
+            {% if Secret %}
+                <span>本机密钥：{{Secret}}</span>
+            {% else %}
+                <span>(MASTER)</span>
+            {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <div style="display: none;">
+        <script src="./static/js/jquery.min.js"></script>
+        <script src="./static/js/base.js"></script>
+        <script>
+            var master = "{{Master}}";
+            var secret = "{{Secret}}";
+            console.log(master);
+            console.log(secret);
+        </script>
+    </div>
+</body>

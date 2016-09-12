@@ -1,0 +1,17 @@
+body {
+    margin: 0px;
+}
+.body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*background: -webkit-radial-gradient(#B3E5FC, #03A9F4, #0288D1);
+    background: radial-gradient(#B3E5FC, #03A9F4, #0288D1);*/
+    background: -webkit-radial-gradient(darkgrey, grey, dimgray);
+    background: radial-gradient(darkgrey, grey, dimgray);
+}
+.titlebar {
+    color: white;
+    text-align: center;
+    font-family: arial,tahoma,'Microsoft Yahei','\5b8b\4f53',sans-serif;
+}
