@@ -9,20 +9,47 @@
     <meta name="Description" content="NSSK protocol emulate(client)." />
     <link rel="shortcut icon" href="http://os.zheng0716.com/static/image/favicon.ico" />
     <title>NSSK认证协议模拟</title>
-    <link href="./static/css/base.css" rel="stylesheet" />
+    <link href="./static/css/nssk.css" rel="stylesheet" />
+    <link href="./static/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="body">
-        <div class="titlebar">
-            <p id="title">
-                NSSK
-            {% if Secret %}
-                <span>本机密钥：{{Secret}}</span>
-            {% else %}
-                <span>(MASTER)</span>
-            {% endif %}
-            </p>
+        <!--title bar-->
+        <p class="titlebar">
+            NSSK | <span class="if-master">(MASTER)</span><span class="ifn-master">(USER)</span></p>
+        <!--button cards-->
+        <div class="cards">
+            <div class="card ifn-master" name="connect">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <h3>通讯录</h3>
+            </div>
+            <div class="card ifn-master" name="send">
+                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                <h3>消息中心</h3>
+            </div>
+            <div class="card if-master" name="users">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <h3>用户列表</h3>
+            </div>
+            <div class="card" name="console">
+                <i class="fa fa-terminal" aria-hidden="true"></i>
+                <h3>控制台</h3>
+            </div>
+        </div>
+        <!--dialogs-->
+        <div id="connect" class="dialog" style="display:none;">
+            <div class="grids"></div>
+        </div>
+        <div id="send" class="dialog" style="display:none;">
+        </div>
+        <div id="users" class="dialog" style="display:none;">
+            <div class="title">用户列表</div>
+            <ul></ul>
+        </div>
+        <div id="console" class="dialog" style="display:none;">
+            <div class="title">控制台日志</div>
+            <ul></ul>
         </div>
     </div>
 
@@ -31,10 +58,16 @@
         <script src="./static/js/jquery.min.js"></script>
         <script src="./static/js/base.js"></script>
         <script>
-            var master = "{{Master}}";
-            var secret = "{{Secret}}";
-            console.log(master);
-            console.log(secret);
+            var master = "{{master}}";
+            var address = "{{address}}";
+            $(document).ready(function () {
+            {% if isMaster %}
+                $(".if-master").show();
+            {% else %}
+                $(".ifn-master").show();
+            {% endif %}
+            });
         </script>
+        <script src="./static/js/nssk.js"></script>
     </div>
 </body>

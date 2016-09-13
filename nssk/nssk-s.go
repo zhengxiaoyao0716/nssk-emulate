@@ -1,7 +1,7 @@
 package nssk
 
 import (
-	"log"
+	"fmt"
 	"math/rand"
 	"time"
 )
@@ -22,12 +22,34 @@ func JoinUser(address string) string {
 		}
 	}
 	users = append(users, address)
-	secret := randStr(32)
+	secret := randKey(16)
 	secrets[address] = secret
-	log.Println(secret)
+	AppendLog(fmt.Sprintln(address, "joined, secret: ", secret))
 	return secret
 }
-func randStr(size int) string {
+
+// ConnectUser 连接用户
+func ConnectUser(a, b, na string) string {
+	data := map[string]interface{}{}
+	data["Na"] = na
+	data["B"] = b
+	kab := randKey(16)
+	data["Kab"] = kab
+	cbs := map[string]interface{}{}
+	cbs["Kab"] = kab
+	cbs["A"] = a
+	data["Cbs"] = Encrypt(cbs, secrets[b])
+	AppendLog(fmt.Sprintln("(2)S->A:", data))
+	AppendLog(fmt.Sprintln("(2)S->A: .Cbs=", cbs))
+	return Encrypt(data, secrets[a])
+}
+
+func randKey(size int) string {
+	// key := make([]byte, size)
+	// if _, err := rand.Read(key); err != nil {
+	// 	return ""
+	// }
+	// return string(key)
 	kinds, result := [][]int{[]int{10, 48}, []int{26, 97}, []int{26, 65}}, make([]byte, size)
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < size; i++ {

@@ -8,6 +8,10 @@ import (
 
 // MakeErr 构造失败响应
 func MakeErr(ctx *macaron.Context, code int, reas interface{}) (int, string) {
+	err, ok := reas.(error)
+	if ok {
+		reas = err.Error()
+	}
 	resp, err := ctx.JSONString(&map[string]interface{}{"flag": false, "reas": reas})
 	if err != nil {
 		log.Println(err)
@@ -17,7 +21,7 @@ func MakeErr(ctx *macaron.Context, code int, reas interface{}) (int, string) {
 
 // MakeResp 构造成功响应
 func MakeResp(ctx *macaron.Context, data interface{}) (int, string) {
-	resp, err := ctx.JSONString(&map[string]interface{}{"flag": true, "data": data})
+	resp, err := ctx.JSONString(&map[string]interface{}{"flag": true, "body": data})
 	if err != nil {
 		log.Println(err)
 	}
