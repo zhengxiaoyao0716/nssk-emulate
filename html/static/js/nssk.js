@@ -113,9 +113,9 @@
             for (var user in $connectGrids.connects) {
                 if ($connectGrids.connects[user] == 0 && user.indexOf(filter) != -1) {
                     $user = $("<ol>" + user + "</ol>");
-                    $user.on("click", function () {
-                        $input.val(user);
-                    });
+                    $user.on("click", (function (user) {
+                        return function () {$input.val(user);}
+                    })(user));
                     $ul.prepend($user);
                 }
             }
@@ -171,7 +171,7 @@
         base.get("/api/all/pull", {}, function (data) {
             data = data["body"];
             refreshLogs(data["logs"]);
-            if (!isMaster) {
+            if (!window.isMaster) {
                 refreshConnects(data["connects"]);
                 refreshMessages(data["messages"]);
             }
@@ -183,14 +183,14 @@
         refreshData();
         $(".titlebar").find("i").on("click", function () {
             $dialogs.hide();
-            if (isMaster) {
+            if (window.isMaster) {
                 $(".if-master").hide();
                 $(".ifn-master").show();
-                isMaster = false;
+                window.isMaster = false;
             } else {
                 $(".if-master").show();
                 $(".ifn-master").hide();
-                isMaster = true;
+                window.isMaster = true;
             }
         });
     });
