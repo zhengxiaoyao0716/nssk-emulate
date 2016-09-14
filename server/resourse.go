@@ -30,13 +30,15 @@ func DownloadApp(ctx *macaron.Context) (int, []byte) {
 	if portIndex != -1 {
 		host = host[0:portIndex]
 	}
+
 	batBytes := []byte("@echo off\n" +
 		fmt.Sprintln("cd", writer.Prefix) +
+		fmt.Sprintln("set", "hour=%time:~0,2%") +
 		fmt.Sprintln(
 			"start", "/min", "nssk-emulate.exe",
 			"-host", host, "-master", GetStrCache("address"),
-			"%1 %2 %3 %4 %5 %6 %7 %8 %9",
-			"2 >> nssk-emulate.log",
+			"%1 %2 %3 %4 %5 %6 %7 %8 %9", "2 >>",
+			"nssk-emulate-%date:~0,4%_%date:~5,2%_%date:~8,2%-%hour: =0%_%time:~3,2%_%time:~6,2%.log",
 		),
 	)
 	writer.Prefix = ""
