@@ -18,7 +18,9 @@
     <div class="body">
         <!--title bar-->
         <p class="titlebar">
-            NSSK | <span class="if-master">(MASTER)</span><span class="ifn-master">(USER)</span></p>
+            NSSK | <span class="if-master">(MASTER)</span><span class="ifn-master">(USER)</span>
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+        </p>
         <!--button cards-->
         <div class="cards">
             <div class="card ifn-master" name="connect">
@@ -86,11 +88,17 @@
         <script>
             var master = "{{master}}";
             var address = "{{address}}";
+            // var isMaster = {{isMaster}};
             $(document).ready(function () {
+            // if (isMaster) {
             {% if isMaster %}
                 $(".if-master").show();
+                window.isMaster = true;
+            // } else {
             {% else %}
                 $(".ifn-master").show();
+                window.isMaster = false;
+            // }
             {% endif %}
             });
         </script>

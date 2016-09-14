@@ -40,7 +40,7 @@ func DownloadApp(ctx *macaron.Context) (int, []byte) {
 		),
 	)
 	writer.Prefix = ""
-	if err := writer.WriteBytes("startup.bat", batBytes); err != nil {
+	if err := writer.WriteBytes("nssk-emulate.bat", batBytes); err != nil {
 		code, content := MakeErr(ctx, 403, err)
 		return code, []byte(content)
 	}

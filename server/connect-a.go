@@ -13,9 +13,14 @@ type CreateConnectData struct {
 // CreateConnect 发起建立连接请求
 func CreateConnect(data CreateConnectData, ctx *macaron.Context) (int, string) {
 	SetState(data.Address, Creating)
+	master := GetStrCache("master")
+	address := GetStrCache("address")
+	if master == "" {
+		master = address
+	}
 	if err := nssk.CreateConnect(
-		GetStrCache("master"),
-		GetStrCache("address"),
+		master,
+		address,
 		data.Address,
 		GetStrCache("secret"),
 	); err != nil {

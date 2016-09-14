@@ -19,6 +19,17 @@ body {
     text-align: center;
     font-family: arial,tahoma,'Microsoft Yahei','\5b8b\4f53',sans-serif;
 }
+.titlebar i {
+    display: none;
+    color: black;
+    cursor: pointer;
+}
+.titlebar:hover i {
+    display: inline-block;
+}
+.titlebar i:hover {
+    color: #03A9F4;
+}
 .cards {
     width: 80%;
     margin-left: 10%;

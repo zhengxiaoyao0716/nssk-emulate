@@ -21,6 +21,10 @@ func CreateConnect(s, a, b, kas string) error {
 		data,
 	)
 	if err != nil {
+		// respJson := resp.JSON()
+		// if respJson != nil {
+
+		// }
 		return err
 	}
 	AppendLog(fmt.Sprintln("(1)A->S:", data))

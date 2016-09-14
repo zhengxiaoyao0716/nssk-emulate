@@ -4,8 +4,9 @@ import "gopkg.in/macaron.v1"
 
 // Index 主页
 func Index(ctx *macaron.Context) {
-	ctx.Data["master"] = GetStrCache("master")
+	master := GetStrCache("master")
+	ctx.Data["master"] = master
 	ctx.Data["address"] = GetStrCache("address")
-	ctx.Data["isMaster"] = GetCache("secret") == nil
+	ctx.Data["isMaster"] = master == ""
 	ctx.HTML(200, "index")
 }

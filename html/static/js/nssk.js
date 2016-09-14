@@ -64,17 +64,31 @@
 
     // 消息
     var $messageGrids = $("#message").find(".grids");
+    $messageGrids.cache = {};
     function refreshMessages(messageMap) {
-        $messageGrids.empty();
+        // $messageGrids.empty();
         for (var user in messageMap) {
-            var $user = $('<div class="brief"></div>');
-            $user.append("<p>" + user + "</p>");
-            $messages = $('<ul class="detail"></ul>');
+            var size = messageMap[user].length;
+            var cachedUser = $messageGrids.cache[user];
+            var $messages;
+            if (cachedUser) {
+                if (size == cachedUser["size"]) {
+                    continue;
+                } else {
+                    $messages = cachedUser["$messages"];
+                    $messages.empty();
+                }
+            } else {
+                var $user = $('<div class="brief"></div>');
+                $user.append("<p>" + user + "</p>");
+                $messages = $('<ul class="detail"></ul>');
+                $user.append($messages);
+                $messageGrids.append($user);
+            }
             $(messageMap[user]).each(function (index, message) {
                 $messages.append("<ol>" + message + "</ol>");
             });
-            $user.append($messages);
-            $messageGrids.append($user);
+            $messageGrids.cache[user] = {"$messages": $messages, "size": size};
         }
     }
 
@@ -100,7 +114,6 @@
                 if ($connectGrids.connects[user] == 0 && user.indexOf(filter) != -1) {
                     $user = $("<ol>" + user + "</ol>");
                     $user.on("click", function () {
-                        console.log("click");
                         $input.val(user);
                     });
                     $ul.prepend($user);
@@ -130,7 +143,7 @@
     // 用户列表
     var $userGrids = $("#users").find(".grids");
     triggers.users = function () {
-        base.get(master + "/api/s/user/list", {}, function (data) {
+        base.get("/api/s/user/list", {}, function (data) {
             $userGrids.empty();
             $(data["body"]).each(function (index, user) {
                 $userGrids.append("<p>" + user + "</p>");
@@ -158,14 +171,28 @@
         base.get("/api/all/pull", {}, function (data) {
             data = data["body"];
             refreshLogs(data["logs"]);
-            refreshConnects(data["connects"]);
-            refreshMessages(data["messages"]);
+            if (!isMaster) {
+                refreshConnects(data["connects"]);
+                refreshMessages(data["messages"]);
+            }
             return true;
         }, true);
         setTimeout(refreshData, 1000);
     }
     $(document).ready(function () {
         refreshData();
+        $(".titlebar").find("i").on("click", function () {
+            $dialogs.hide();
+            if (isMaster) {
+                $(".if-master").hide();
+                $(".ifn-master").show();
+                isMaster = false;
+            } else {
+                $(".if-master").show();
+                $(".ifn-master").hide();
+                isMaster = true;
+            }
+        });
     });
 
 
