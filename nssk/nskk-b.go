@@ -38,7 +38,7 @@ func VerifyConnect(a, b string) (string, error) {
 	cab := Encrypt(map[string]interface{}{"Nb": strconv.Itoa(nb)}, kab)
 	data := map[string]interface{}{"Address": b, "Cab": cab}
 	resp, err := requests.Post(
-		b+"/api/a/connect/reply-verify",
+		a+"/api/a/connect/reply-verify",
 		data,
 	)
 	if err != nil {

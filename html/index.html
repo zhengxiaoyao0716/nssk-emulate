@@ -9,6 +9,7 @@
     <meta name="Description" content="NSSK protocol emulate(client)." />
     <link rel="shortcut icon" href="http://os.zheng0716.com/static/image/favicon.ico" />
     <title>NSSK认证协议模拟</title>
+    <link href="./static/css/base.css" rel="stylesheet" />
     <link href="./static/css/nssk.css" rel="stylesheet" />
     <link href="./static/css/font-awesome.min.css" rel="stylesheet" />
 </head>
@@ -24,13 +25,21 @@
                 <i class="fa fa-phone" aria-hidden="true"></i>
                 <h3>通讯录</h3>
             </div>
-            <div class="card ifn-master" name="send">
+            <div class="card ifn-master" name="message">
                 <i class="fa fa-comments-o" aria-hidden="true"></i>
-                <h3>消息中心</h3>
+                <h3>消息</h3>
+            </div>
+            <div class="card ifn-master" name="send">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <h3>发信</h3>
             </div>
             <div class="card if-master" name="users">
                 <i class="fa fa-users" aria-hidden="true"></i>
                 <h3>用户列表</h3>
+            </div>
+            <div class="card if-master" name="download">
+                <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                <h3>获取应用</h3>
             </div>
             <div class="card" name="console">
                 <i class="fa fa-terminal" aria-hidden="true"></i>
@@ -38,17 +47,34 @@
             </div>
         </div>
         <!--dialogs-->
-        <div id="connect" class="dialog" style="display:none;">
+        <div id="connect" class="dialog" style="display: none;">
+            <h3 class="title">通讯录</h3>
             <div class="grids"></div>
         </div>
-        <div id="send" class="dialog" style="display:none;">
+        <div id="message" class="dialog" style="display: none;">
+            <h3 class="title">消息</h3>
+            <div class="grids"></div>
         </div>
-        <div id="users" class="dialog" style="display:none;">
-            <div class="title">用户列表</div>
-            <ul></ul>
+        <div id="send" class="modal" style="display: none;">
+            <div class="content">
+                <div class="title">发信</div>
+                <div class="message">
+                    <input type="text" placeholder="填写发信地址" />
+                    <ul style="display: none;"></ul>
+                    <textarea rows="8" placeholder="发信内容"></textarea>
+                </div>
+                <div class="buttons">
+                    <a id="close" href="javascript:;">关闭</a>
+                    <a id="submit" href="javascript:;">发送</a>
+                </div>
+            </div>
         </div>
-        <div id="console" class="dialog" style="display:none;">
-            <div class="title">控制台日志</div>
+        <div id="users" class="dialog" style="display: none;">
+            <h3 class="title">用户列表</h3>
+            <div class="grids"></div>
+        </div>
+        <div id="console" class="dialog" style="display: none;">
+            <h3 class="title">控制台</h3>
             <ul></ul>
         </div>
     </div>

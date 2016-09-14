@@ -7,6 +7,8 @@ import (
 )
 
 func regHandlers(m *macaron.Macaron) {
+	m.Get("/resource/app/download", DownloadApp)
+
 	m.Group("/view", func() {
 		m.Get("", Index)
 		m.Get("/index.html", Index)

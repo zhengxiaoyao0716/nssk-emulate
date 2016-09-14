@@ -63,7 +63,7 @@ func scanIPv4() {
 	for _, address := range addresses {
 		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
 			if ipnet.IP.To4() != nil {
-				log.Println(ipnet.IP.String())
+				log.Println(ipnet.IP)
 			}
 		}
 	}
@@ -83,6 +83,7 @@ func run(address string, master string) bool {
 			map[string]interface{}{"address": address},
 		)
 		if err != nil {
+			log.Println(err)
 			return false
 		}
 		secret := resp.JSON()["body"].(string)

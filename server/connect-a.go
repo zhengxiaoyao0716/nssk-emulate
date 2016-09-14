@@ -34,10 +34,12 @@ type ReplyVerifyConnectData struct {
 func ReplyVerifyConnect(data ReplyVerifyConnectData, ctx *macaron.Context) (int, string) {
 	cab, kab, err := nssk.ReplyVerifyConnect(GetStrCache("address"), data.Address, data.Cab)
 	if err != nil {
+		delete(GetMapCache("connects"), data.Address)
 		return MakeErr(ctx, 403, err)
 	}
 	PushCache(data.Address, kab)
 	// SetState(data.Address, Verified)
 	SetState(data.Address, Connected)
+	GetMapCache("messages")[data.Address] = []interface{}{}
 	return MakeResp(ctx, cab)
 }

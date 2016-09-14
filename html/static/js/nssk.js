@@ -38,6 +38,9 @@
                     break;
                 case 1:
                     $state = $("<span>[请求中] </span>");
+                    $state.on("click", function () {
+                        base.post("/api/a/connect/create", { "address": user });
+                    });
                     break;
                 case 2:
                     var $state = $('<a href="javascript:;" title="接受连接请求"><i class="fa fa-check-square-o" aria-hidden="true"></i> </a>');
@@ -59,22 +62,87 @@
         });
     }
 
-    // 消息中心
-    var $sendList = $("#send").find("ul");
-    triggers.send = function () {
+    // 消息
+    var $messageGrids = $("#message").find(".grids");
+    function refreshMessages(messageMap) {
+        $messageGrids.empty();
+        for (var user in messageMap) {
+            var $user = $('<div class="brief"></div>');
+            $user.append("<p>" + user + "</p>");
+            $messages = $('<ul class="detail"></ul>');
+            $(messageMap[user]).each(function (index, message) {
+                $messages.append("<ol>" + message + "</ol>");
+            });
+            $user.append($messages);
+            $messageGrids.append($user);
+        }
     }
 
+    // 发信
+    (function () {
+        var $sendDialog = $('#send');
+        $sendDialog.close = function () {$sendDialog.hide();};
+        var $close = $sendDialog.find("#close");
+        $close.on("click", $sendDialog.close);
+        var $input = $sendDialog.find("input");
+        var $ul = $sendDialog.find("ul");
+        $ul.open = function () {
+            $ul.filter();
+            $ul.fadeIn();
+        };
+        $ul.close = function () {
+            $ul.fadeOut();
+        };
+        $ul.filter = function () {
+            $ul.empty();
+            var filter = $input.val();
+            for (var user in $connectGrids.connects) {
+                if ($connectGrids.connects[user] == 0 && user.indexOf(filter) != -1) {
+                    $user = $("<ol>" + user + "</ol>");
+                    $user.on("click", function () {
+                        console.log("click");
+                        $input.val(user);
+                    });
+                    $ul.prepend($user);
+                }
+            }
+        }
+        $input.on("focus", $ul.open);
+        $input.on("blur", $ul.close);
+        $input.on("input", $ul.filter);
+        var $textarea = $sendDialog.find("textarea");
+        var $submit = $sendDialog.find("#submit");
+        $submit.on("click", function () {
+            var user = $input.val();
+            if (user == "") {
+                base.dialog.toast.show("警告", "地址不可为空")
+                return;
+            }
+            var message = $textarea.val();
+            if (message == "") {
+                base.dialog.toast.show("警告", "正文不可为空")
+                return;
+            }
+            base.post("/api/message/send", { "address": user, "message": message}, $sendDialog.close);
+        });
+    })();
+
     // 用户列表
-    var $userList = $("#users").find("ul");
+    var $userGrids = $("#users").find(".grids");
     triggers.users = function () {
         base.get(master + "/api/s/user/list", {}, function (data) {
-            $userList.empty();
+            $userGrids.empty();
             $(data["body"]).each(function (index, user) {
-                $userList.append("<ol>" + user + "</ol>");
+                $userGrids.append("<p>" + user + "</p>");
             });
             return true;
         }, true);
     };
+
+    // 获取应用
+    triggers.download = function () {
+        open("/resource/app/download");
+    }
 
     // 日志
     var $consoleList = $("#console").find("ul");
@@ -91,7 +159,7 @@
             data = data["body"];
             refreshLogs(data["logs"]);
             refreshConnects(data["connects"]);
-            console.log(data)
+            refreshMessages(data["messages"]);
             return true;
         }, true);
         setTimeout(refreshData, 1000);

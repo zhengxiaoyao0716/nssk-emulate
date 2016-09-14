@@ -14,6 +14,7 @@ type ReplyCreateConnectData struct {
 func ReplyCreateConnect(data ReplyCreateConnectData, ctx *macaron.Context) (int, string) {
 	address, err := nssk.ReplyCreateConnect(data.Cbs, GetStrCache("secret"))
 	if err != nil {
+		delete(GetMapCache("connects"), address)
 		return MakeErr(ctx, 403, err)
 	}
 	SetState(address, Verifying)
@@ -29,9 +30,11 @@ type VerifyConnectData struct {
 func VerifyConnect(data VerifyConnectData, ctx *macaron.Context) (int, string) {
 	kab, err := nssk.VerifyConnect(data.Address, GetStrCache("address"))
 	if err != nil {
+		delete(GetMapCache("connects"), data.Address)
 		return MakeErr(ctx, 403, err)
 	}
 	PushCache(data.Address, kab)
 	SetState(data.Address, Connected)
+	GetMapCache("messages")[data.Address] = []interface{}{}
 	return MakeResp(ctx, "fin")
 }

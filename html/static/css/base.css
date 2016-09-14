@@ -1,0 +1,207 @@
+/* 模态框 */
+.modal {
+    position: fixed;
+    display: block;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.modal::before {
+    position: fixed;
+    display: block;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background: black;
+    filter:alpha(opacity=80);
+    opacity:0.8;
+}
+.modal .content {
+    position: fixed;
+    display: block;
+    z-index: 1;
+    left: 50%;
+    top: 24%;
+    width: 36%;
+    margin-left: -18%;
+    color: white;
+}
+.modal .content .title {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: #03A9F4;
+    color: white;
+    font-size: 1.5em;
+    padding: 20px 0px;
+}
+.modal .content .message {
+    background-color: white;
+    color: black;
+    padding: 20px 0px;
+}
+.modal .content .buttons {
+    display: flex;
+    justify-content: space-around;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    min-height: 6px;
+    background-color: white;
+    color: black;
+}
+.modal .content .buttons a {
+    position: relative;
+    margin: 12px;
+    color: black;
+    text-decoration: none;
+}
+.modal .content .buttons a::before {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    content: ""
+}
+.modal .content .buttons a:hover {
+    color: white;
+    z-index: 1;
+}
+.modal .content .buttons a:hover::before {
+    position: absolute;
+    z-index: -1;
+    display: inline-block;
+    left: 0px;
+    top: 10%;
+    width: 100%;
+    height: 80%;
+    background: #FFEB3B;
+    border-radius: 6px;
+    content: "";
+    opacity: 1;
+    -webkit-transition: -webkit-transform 0.1s, opacity 0.1s;
+    transition: transform 0.1s, opacity 0.1s;
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+.modal .toast {
+    position: fixed;
+    z-index: 1;
+    top: 30%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    margin-left: -75px;
+    border-radius: 24px;
+    background-color: #03A9F4;
+    color: white;
+    font-size: 1.5em;
+    line-height: 150px;
+    text-align: center;
+}
+.modal .toast i {
+    width: 150px;
+    height: 150px;
+    font-size: 100px;
+    line-height: 150px;
+    text-align: center;
+}
+.modal .reason {
+    position: fixed;
+    z-index: 1;
+    top: 30%;
+    width: 100%;
+    margin-top: 160px;
+    color: white;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+
+/* 等待动画 */
+.waiting {
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
+    margin: 30px auto;
+    border-radius: 15px;
+    background-color: #03A9F4;
+    -webkit-animation: waiting-rect 3s infinite cubic-bezier(0.5, -0.5, 1, 0.5);
+    animation: waiting-rect 3s infinite cubic-bezier(0.5, -0.5, 1, 0.5);
+}
+@-webkit-keyframes waiting-rect {
+    0% {
+        -webkit-transform: perspective(120px);
+    }
+    25% {
+        -webkit-transform: perspective(120px) rotateX(180deg);
+        background-color: #FFEB3B;
+    }
+    50% {
+        -webkit-transform: perspective(120px) rotateX(180deg) rotateY(180deg);
+        background-color: #f5f;
+    }
+    100% {
+        -webkit-transform: perspective(120px) rotateZ(90deg);
+    }
+}
+@keyframes waiting-rect {
+    0% {
+        transform: perspective(120px);
+    }
+    25% {
+        transform: perspective(120px) rotateX(180deg);
+        background-color: #FFEB3B;
+    }
+    50% {
+        transform: perspective(120px) rotateX(180deg) rotateY(180deg);
+        background-color: #f5f;
+    }
+    100% {
+        transform: perspective(120px) rotateZ(90deg);
+    }
+}
+.waiting::after {
+    position: absolute;
+    left: 5px;
+    font-size: 50px;
+    font-style:normal;
+    color: white;
+    content: "请";
+    -webkit-animation: waiting-word 3s infinite cubic-bezier(0.5, -0.5, 1, 0.5);
+    animation: waiting-word 3s infinite cubic-bezier(0.5, -0.5, 1, 0.5);
+}
+@-webkit-keyframes waiting-rect {
+    0% {
+        -webkit-transform: perspective(120px);
+    }
+    25% {
+        -webkit-transform: perspective(120px) rotateX(180deg);
+        content: "稍";
+    }
+    50% {
+        -webkit-transform: perspective(120px) rotateX(180deg) rotateY(180deg);
+        content: "候";
+    }
+    100% {
+        -webkit-transform: perspective(120px) rotateZ(90deg);
+    }
+}
+@keyframes waiting-word {
+    0% {
+        transform: perspective(120px);
+    }
+    25% {
+        transform: perspective(120px) rotateX(180deg);
+        content: "稍";
+    }
+    50% {
+        transform: perspective(120px) rotateX(180deg) rotateY(180deg);
+        content: "候";
+    }
+    100% {
+        transform: perspective(120px) rotateZ(180deg);
+    }
+}

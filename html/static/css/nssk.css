@@ -102,12 +102,65 @@ body {
     justify-content: center;
     flex-wrap: wrap;
 }
-.dialog .grids p {
+.dialog .grids p, .dialog .grids .brief {
     width: 30%;
 }
 .dialog .grids p a {
     color: black;
     text-decoration: none;
+}
+.dialog .grids .brief p {
+    width: 100%;
+    font-size: 1.2em;
+}
+.dialog .grids .brief p, .dialog .grids .brief ul {
+    margin: 0px;
+}
+.dialog .grids .brief .detail {
+    max-height: 0px;
+    overflow: hidden;
+    -webkit-transition: max-height 1s ease;
+    transition: max-height 1s ease;
+}
+.dialog .grids .brief:hover .detail {
+    max-height: 1000px;
+    -webkit-transition: max-height 1s ease;
+    transition: max-height 1s ease;
+}
+
+/* message */
+.message {
+    position: relative;
+}
+.message input, .message textarea {
+    padding: 1%;
+    width: 90%;
+    border: none;
+    resize: none;
+    border: 1px solid #eee;
+}
+.message textarea {
+    margin-top: 6px;
+}
+.message ul, .message ul ol {
+    padding: 0px;
+    margin: 0px;
+}
+.message ul {
+    position: absolute;
+    width: 92%;
+    left: 3.8%;
+    background: white;
+    border: 1px solid #eee;
+    text-align: left;
+    box-shadow: 0px 0px 3px 0px grey;
+}
+.message ul ol {
+    padding: 1%;
+    cursor: pointer;
+}
+.message ul ol:hover {
+    background: #eee;
 }
 
 /*controll*/
