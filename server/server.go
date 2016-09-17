@@ -7,15 +7,13 @@ import (
 )
 
 func regHandlers(m *macaron.Macaron) {
+	m.Get("", Index)
+	m.Get("/index.html", Index)
 	m.Get("/resource/app/download", DownloadApp)
-
-	m.Group("/view", func() {
-		m.Get("", Index)
-		m.Get("/index.html", Index)
-	})
 
 	m.Group("/api", func() {
 		m.Get("/log/pull", PullLog)
+		m.Post("/server/bind", binding.Bind(BindServerData{}), BindServer)
 		m.Get("/connect/list", ListConnect)
 		m.Group("/message", func() {
 			m.Post("/send", binding.Bind(SendMessageData{}), SendMessage)
@@ -33,6 +31,7 @@ func regHandlers(m *macaron.Macaron) {
 		m.Get("", func(ctx *macaron.Context) (int, string) {
 			return MakeResp(ctx, []map[string]string{
 				map[string]string{"url": "./log/pull", "method": "GET", "desc": "拉取日志"},
+				map[string]string{"url": "./server/bind", "method": "POST", "desc": "绑定服务器"},
 				map[string]string{"url": "./connect/list", "method": "GET", "desc": "列出连接信息"},
 				map[string]string{"url": "./message", "method": "GET", "desc": "消息接口相关帮助"},
 				map[string]string{"url": "./all/pull", "method": "GET", "desc": "拉取全部数据"},

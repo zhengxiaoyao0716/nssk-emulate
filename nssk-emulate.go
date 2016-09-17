@@ -21,7 +21,7 @@ func main() {
 	signal := flag.String("s", "run", "信号 run | scan")
 	host := flag.String("host", "localhost", "指定主机IP或域名")
 	port := flag.Int("port", -1, "指定端口号（-1表示自动检索）")
-	master := flag.String("master", "http://localhost:5000", "指定公信服务主机通讯地址\n"+
+	master := flag.String("master", "http://localhost:4001", "指定公信服务主机通讯地址\n"+
 		"    \t * 当公信服务地址与本机服务地址相同时\n"+
 		"    \t * (master == http://address:port)\n"+
 		"    \t * 应用将作为公信服务端启动\n"+
@@ -38,7 +38,7 @@ func main() {
 	case "run":
 		address := "http://" + *host + ":"
 		if *port == -1 {
-			*port = 5000
+			*port = 4001
 			for true {
 				if checkAddress(address + strconv.Itoa(*port)) {
 					break
@@ -99,7 +99,7 @@ func run(address string, master string) bool {
 	}
 	server.PushCache("address", address)
 
-	if err := bat.Exec("start " + address + "/view"); err != nil {
+	if err := bat.Exec("start " + address); err != nil {
 		log.Println("* Start browser failed:", err)
 		log.Println("* Please open this page in your browser manually:")
 		log.Println("* " + address)

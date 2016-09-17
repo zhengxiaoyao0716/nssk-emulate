@@ -1,9 +1,6 @@
 package server
 
-import (
-	"github.com/zhengxiaoyao0716/nssk-emulate/nssk"
-	"gopkg.in/macaron.v1"
-)
+import "gopkg.in/macaron.v1"
 
 // ListConnect 列出连接信息
 func ListConnect(ctx *macaron.Context) (int, string) {
@@ -29,9 +26,4 @@ func SetState(address string, state State) {
 
 func init() {
 	PushCache("connects", map[string]interface{}{})
-}
-
-// PullLog 拉取日志
-func PullLog(ctx *macaron.Context) (int, string) {
-	return MakeResp(ctx, nssk.PullLog())
 }

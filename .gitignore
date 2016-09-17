@@ -1,3 +1,5 @@
+tmp/
+
 debug
 *.exe
 *.log

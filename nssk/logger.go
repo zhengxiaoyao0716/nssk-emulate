@@ -18,3 +18,8 @@ func PullLog() []string {
 	}
 	return logs[offset:logSize]
 }
+
+// CleanLog 清理日志
+func CleanLog() {
+	logs = []string{}
+}

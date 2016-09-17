@@ -39,19 +39,19 @@
                 case 1:
                     $state = $("<span>[请求中] </span>");
                     $state.on("click", function () {
-                        base.post("/api/a/connect/create", { "address": user });
+                        base.post("./api/a/connect/create", { "address": user });
                     });
                     break;
                 case 2:
                     var $state = $('<a href="javascript:;" title="接受连接请求"><i class="fa fa-check-square-o" aria-hidden="true"></i> </a>');
                     $state.on("click", function () {
-                        base.post("/api/b/connect/verify", { "address": user });
+                        base.post("./api/b/connect/verify", { "address": user });
                     });
                     break;
                 case undefined:
                     var $state = $('<a href="javascript:;" title="发送连接请求"><i class="fa fa-user-plus" aria-hidden="true"></i> </a>');
                     $state.on("click", function () {
-                        base.post("/api/a/connect/create", { "address": user });
+                        base.post("./api/a/connect/create", { "address": user });
                     });
                     break;
                 default:
@@ -136,14 +136,14 @@
                 base.dialog.toast.show("警告", "正文不可为空")
                 return;
             }
-            base.post("/api/message/send", { "address": user, "message": message}, $sendDialog.close);
+            base.post("./api/message/send", { "address": user, "message": message}, $sendDialog.close);
         });
     })();
 
     // 用户列表
     var $userGrids = $("#users").find(".grids");
     triggers.users = function () {
-        base.get("/api/s/user/list", {}, function (data) {
+        base.get("./api/s/user/list", {}, function (data) {
             $userGrids.empty();
             $(data["body"]).each(function (index, user) {
                 $userGrids.append("<p>" + user + "</p>");
@@ -154,7 +154,7 @@
 
     // 获取应用
     triggers.download = function () {
-        open("/resource/app/download");
+        open("./resource/app/download");
     }
 
     // 日志
@@ -168,7 +168,7 @@
 
     // 刷新数据
     function refreshData() {
-        base.get("/api/all/pull", {}, function (data) {
+        base.get("./api/all/pull", {}, function (data) {
             data = data["body"];
             refreshLogs(data["logs"]);
             if (!window.isMaster) {
@@ -195,5 +195,7 @@
         });
     });
 
-
+    // 配置部署服务器
+    window.nssk = {};
+    nssk.bindServer = function (address) {base.post("./api/server/bind", {"address": address});};
 })();

@@ -28,6 +28,11 @@ func JoinUser(address string) string {
 	return secret
 }
 
+func CleanUser() {
+	users = []string{}
+	secrets = map[string]string{}
+}
+
 // ConnectUser 连接用户
 func ConnectUser(a, b, na string) string {
 	data := map[string]interface{}{}
