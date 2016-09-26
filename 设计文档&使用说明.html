@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://temp.zheng0716.com/MarkedWithToc/index-light.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="Description" content="设计文档&使用说明">
+    <link rel="shortcut icon" href="http://os.zheng0716.com/static/image/favicon.ico">
+    <title>设计文档&使用说明</title>
+    <script src="./设计文档&amp;使用说明_files/marked.js.下载"></script>
+    <script src="./设计文档&amp;使用说明_files/marked_with_toc.js.下载"></script>
+    <script src="./设计文档&amp;使用说明_files/drag_file.js.下载"></script>
+    <script src="./设计文档&amp;使用说明_files/save.js.下载"></script>
+    <link href="./设计文档&amp;使用说明_files/markdown-light.css" rel="stylesheet">
+</head>
+<body style="max-width: 1366px; width: 1306px; padding-top: 0px; margin-top: 10px;">
+    
+    <a href="http://temp.zheng0716.com/MarkedWithToc/index.html" style="position: fixed; right: 0px; top: 0px; margin:10px; padding: 6px; border:3px solid; font-size: 24px;">Dark</a>
+    <a href="http://temp.zheng0716.com/MarkedWithToc/index-light.html" style="position: fixed; right: 0px; top: 50px; margin:10px; padding: 6px; border:3px solid; font-size: 24px;">Clean</a>
+    <a href="javascript:save();" style="position: fixed; right: 0px; top: 100px; margin:10px; padding: 6px; border:3px solid; font-size: 24px;">Save</a>
+    
+    <a href="https://github.com/zhengxiaoyao0716/MarkedWithToc" target="_blank" style="position: fixed; right: 0px; bottom: 30px; margin:10px;"><img src="./设计文档&amp;使用说明_files/github.svg"></a>
+    <a href="https://gitter.im/zhengxiaoyao0716/chatroom?utm_source=share-link&amp;utm_medium=link&amp;utm_campaign=share-link" target="_blank" style="position: fixed; right: 0px; bottom: 0px; margin:10px;"><img src="./设计文档&amp;使用说明_files/chatroom.svg"></a>
+<ol id="catalog" style="position: fixed; left: 0px; top: 0px; line-height: 30px; font-size: 24px; border: 3px solid; padding: 30px; width: 1%; height: 616px; overflow-y: auto;"><li style="margin-bottom: 16px;"><a href="http://temp.zheng0716.com/MarkedWithToc/index-light.html#1">NSSK协议模拟</a><ol><li><a href="http://temp.zheng0716.com/MarkedWithToc/index-light.html#1.1">使用文档</a></li><li><a href="http://temp.zheng0716.com/MarkedWithToc/index-light.html#1.2">功能规格</a></li><li><a href="http://temp.zheng0716.com/MarkedWithToc/index-light.html#1.3">技术规格</a></li></ol></li></ol><div id="markdownContent" style="float: right; margin-right: 6%; width: 89%; height: 616px; overflow-y: auto;"><h1 id="nssk-emulate">nssk-emulate</h1>
+<h1 id="nssk-"><a name="1"></a>1. NSSK协议模拟</h1>
+<hr>
+<h2 id="-"><a name="1.1"></a>1.1 使用文档</h2>
+<h3 id="-master-app">首先要部署一个Master端app</h3>
+<ul>
+<li>对于简单情况（同一台机器模拟S、A、B），直接双击主程序（<code>nssk-emulate.exe</code>），应用将作为Master启动，监听<code>http://localhost:4001</code>地址上</li>
+<li>对于多机器间模拟的场景，通过启动时命令行传参来指定本机服务地址以及Master地址。例如：<code>nssk-emulate -host 192.168.1.101 -master http://192.168.1.101:4001</code></li>
+<li>您也可以直接访问临时演示用的我服务器上的Master端：<a href="http://temp.zheng0716.com/nssk-emulate">临时演示地址</a></li>
+</ul>
+<p><img src="./设计文档&amp;使用说明_files/tutorial_01.jpg" alt="tutorial_01"></p>
+<h3 id="-user-app">点击中央按钮获取并启动User端App</h3>
+<ul>
+<li>您将会得到一个zip压缩包，将其解压后双击启动脚本<code>nssk-emulate.bat</code>，app将以User模式启动</li>
+<li>以这种方式启动的app，其通许地址将视为访问下载时的地址，其Master将默认视为提供下载的服务端</li>
+<li>您也可以通过命令行传参来手动指定启动模式及服务指向关系，启动脚本与主程序都支持同样的参数</li>
+</ul>
+<p><img src="./设计文档&amp;使用说明_files/tutorial_02_1.jpg" alt="tutorial_01"><img src="./设计文档&amp;使用说明_files/tutorial_02_2.jpg" alt="tutorial_01"></p>
+<h3 id="-user-">创建User之间的安全加密连接</h3>
+<ol>
+<li>A从联系人中选定一位用户B并点击创建连接按钮</li>
+<li>B收到A的连接请求，从通讯录中找到A并点击接受连接的按钮</li>
+<li>安全连接创建完成，可以依次查看A、B、S的控制台日志</li>
+</ol>
+<p><img src="./设计文档&amp;使用说明_files/tutorial_03.jpg" alt="tutorial_02"></p>
+<h3 id="user-">User之间通过安全连接使用密文通讯</h3>
+<ol>
+<li>用户A点击第三个按钮，弹出编写信息弹框，填写并发送</li>
+<li>用户B点击第二个按钮，查看A发来的消息</li>
+</ol>
+<p><img src="./设计文档&amp;使用说明_files/tutorial_04_1.jpg" alt="tutorial_04_1">
+<img src="./设计文档&amp;使用说明_files/tutorial_04_2.jpg" alt="tutorial_02_2"></p>
+<hr>
+<h2 id="-"><a name="1.2"></a>1.2 功能规格</h2>
+<ol>
+<li>Master端提供User端之间的接入与认证，提供app的下载</li>
+<li>User端可以发起或接受创建安全加密连接的请求</li>
+<li>遵循NSSK协议建立安全连接，展示认证流程</li>
+<li>User之间安全连接建立后可以相互以密文通讯</li>
+<li>通讯内容采用AES对称加密，解密后展示在前端</li>
+<li>Master同时也具有User身份，User也可以与自己建立连接并通讯</li>
+<li>基于上一条原理，S、A、B三端可以分别部署，也可部署在同一个节点演示</li>
+<li>User可以作为其他User的Master，彼Master地址指向此通讯地址</li>
+</ol>
+<hr>
+<h2 id="-"><a name="1.3"></a>1.3 技术规格</h2>
+<ol>
+<li>客户端以网页形式展现，由前端Web页面+后端本地Server组成</li>
+<li>前端Web页面基于H5CSS3，引入<code>Jquery</code>，通过<code>Ajax</code>调用起后端服务</li>
+<li>后端Server基于<code>Macaron</code>框架，提供前端接口，收发各个角色间的通讯</li>
+<li>NSSK协议中对称加密采用AES算法，16位密钥，基于Go官方标准库<code>"crypto/aes"</code></li>
+</ol>
+<hr>
+<h3 id="-1-">附件1 * 名词解释：</h3>
+<ul>
+<li>Master: 作为中央公信服务器的一台PC|Server或一个端口</li>
+<li>User: 多台PC|Server或同一PC|Server多端口</li>
+<li>S：NSSK认证协议中充当中间服务器的角色</li>
+<li>A: NSSK认证协议中发起建立连接请求，接受连接验证的角色</li>
+<li>B: NSSK认证协议中接受安全连接请求，发起连接验证的角色</li>
+</ul>
+<h3 id="-2-">附件2 * 基本命令：</h3>
+<pre><code class="lang-bat">Usage of nssk-emulate:
+  -host string
+        指定主机IP或域名 (default "localhost")
+  -master string
+        指定公信服务主机通讯地址
+         * 当公信服务地址与本机服务地址相同时
+         * (master == http://address:port)
+         * 应用将作为公信服务端启动
+        (default "http://localhost:4001")
+  -port int
+        指定端口号（-1表示自动检索） (default -1)
+  -s string
+        信号 run | scan (default "run")
+</code></pre>
+<h3 id="-3-nssk-">附件3 * NSSK协议认证流程与原理</h3>
+<h4 id="-a-b-">若A和B想要进行通信，就要加入一个可信的第三方服务器。 流程：</h4>
+<p><img src="./设计文档&amp;使用说明_files/NSSKProtocol.jpg" alt="NSSKProtocol"></p>
+<ol>
+<li>A向服务器S发送自己和要通信目标的标识和一个随机数Na</li>
+<li>然后服务器S返回给A一个A和S对称密钥加密的内容，包括：随机数Na、目标B的标识、AB的会话密钥和用服务器和B的对称密钥加密的内容，其中包括：AB的会话密钥，和A的标识。</li>
+<li>A用和服务器共同的对称密钥解密出结果后，判断随机数Na是否正确，正确后向B发送用服务器和B的对称密钥加密的内容，其中包括：AB的会话密钥，和A的标识。</li>
+<li>B用和服务器共同的对称密钥解密出结果后，用AB的会话密钥加密一个随机数Nb。</li>
+<li>A收到解密后将这个随机数-1后重新发送给B，B解密后若正确，则A和B的保密通信即可建立。<blockquote>
+<p>和服务器的通信由于需要加密的数据量小，可以采用RSA来实现。A和B之间通信的数据量较大，可以采用AES实现。</p>
+</blockquote>
+</li>
+</ol>
+</div></body></html>
