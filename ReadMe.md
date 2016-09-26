@@ -78,6 +78,7 @@ Usage of nssk-emulate:
 ### 附件3 * NSSK协议认证流程与原理
 #### 若A和B想要进行通信，就要加入一个可信的第三方服务器。 流程：
 ![NSSKProtocol](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/NSSKProtocol.jpg)
+
 1. A向服务器S发送自己和要通信目标的标识和一个随机数Na
 2. 然后服务器S返回给A一个A和S对称密钥加密的内容，包括：随机数Na、目标B的标识、AB的会话密钥和用服务器和B的对称密钥加密的内容，其中包括：AB的会话密钥，和A的标识。
 3. A用和服务器共同的对称密钥解密出结果后，判断随机数Na是否正确，正确后向B发送用服务器和B的对称密钥加密的内容，其中包括：AB的会话密钥，和A的标识。
