@@ -8,28 +8,28 @@
 - 对于多机器间模拟的场景，通过启动时命令行传参来指定本机服务地址以及Master地址。例如：`nssk-emulate -host 192.168.1.101 -master http://192.168.1.101:4001`
 - 您也可以直接访问临时演示用的我服务器上的Master端：[临时演示地址](http://temp.zheng0716.com/nssk-emulate)
 
-![tutorial_01](./.request/tutorial_01.jpg)
+![tutorial_01](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/tutorial_01.jpg)
 
 ### 点击中央按钮获取并启动User端App
 - 您将会得到一个zip压缩包，将其解压后双击启动脚本`nssk-emulate.bat`，app将以User模式启动
 - 以这种方式启动的app，其通许地址将视为访问下载时的地址，其Master将默认视为提供下载的服务端
 - 您也可以通过命令行传参来手动指定启动模式及服务指向关系，启动脚本与主程序都支持同样的参数
 
-![tutorial_01](./.request/tutorial_02_1.jpg)![tutorial_01](./.request/tutorial_02_2.jpg)
+![tutorial_01](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/tutorial_02_1.jpg)![tutorial_01](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/tutorial_02_2.jpg)
 
 ### 创建User之间的安全加密连接
 1. A从联系人中选定一位用户B并点击创建连接按钮
 2. B收到A的连接请求，从通讯录中找到A并点击接受连接的按钮
 3. 安全连接创建完成，可以依次查看A、B、S的控制台日志
 
-![tutorial_02](./.request/tutorial_03.jpg)
+![tutorial_02](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/tutorial_03.jpg)
 
 ### User之间通过安全连接使用密文通讯
 1. 用户A点击第三个按钮，弹出编写信息弹框，填写并发送
 2. 用户B点击第二个按钮，查看A发来的消息
 
-![tutorial_04_1](./.request/tutorial_04_1.jpg)
-![tutorial_02_2](./.request/tutorial_04_2.jpg)
+![tutorial_04_1](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/tutorial_04_1.jpg)
+![tutorial_02_2](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/tutorial_04_2.jpg)
 
 ***
 ## 功能规格
@@ -46,8 +46,8 @@
 ## 技术规格
 1. 客户端以网页形式展现，由前端Web页面+后端本地Server组成
 2. 前端Web页面基于H5CSS3，引入`Jquery`，通过`Ajax`调用起后端服务
-2. 后端Server基于`Macaron`框架，提供前端接口，收发各个角色间的通讯
-3. NSSK协议中对称加密采用AES算法，16位密钥，基于Go官方标准库`"crypto/aes"`
+3. 后端Server基于`Macaron`框架，提供前端接口，收发各个角色间的通讯
+4. NSSK协议中对称加密采用AES算法，16位密钥，基于Go官方标准库`"crypto/aes"`
 
 ***
 ### 附件1 * 名词解释：
@@ -77,7 +77,7 @@ Usage of nssk-emulate:
 
 ### 附件3 * NSSK协议认证流程与原理
 #### 若A和B想要进行通信，就要加入一个可信的第三方服务器。 流程：
-![NSSKProtocol](./.request/NSSKProtocol.jpg)
+![NSSKProtocol](https://raw.githubusercontent.com/zhengxiaoyao0716/nssk-emulate/master/.request/NSSKProtocol.jpg)
 1. A向服务器S发送自己和要通信目标的标识和一个随机数Na
 2. 然后服务器S返回给A一个A和S对称密钥加密的内容，包括：随机数Na、目标B的标识、AB的会话密钥和用服务器和B的对称密钥加密的内容，其中包括：AB的会话密钥，和A的标识。
 3. A用和服务器共同的对称密钥解密出结果后，判断随机数Na是否正确，正确后向B发送用服务器和B的对称密钥加密的内容，其中包括：AB的会话密钥，和A的标识。
