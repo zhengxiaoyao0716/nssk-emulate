@@ -36,6 +36,12 @@
                     "hide": function() {
                         $modal.hide();
                         $modal.remove();
+                    },
+                    "flash": function (timeout) {
+                        base.dialog.waiting.show();
+                        setTimeout(function () {
+                            base.dialog.waiting.hide();
+                        }, timeout);
                     }
                 }
             })(),
@@ -46,26 +52,28 @@
                 $modal.append($toast);
                 var $reason = $('<div class="reason"></div>');
                 $modal.append($reason);
+                function show(toast, reason) {
+                    $toast.empty();
+                    if (toast) {
+                        $toast.append(toast);
+                    } else {
+                        $toast.append('<i class="fa fa-check"></i>');
+                    }
+                    $reason.empty();
+                    if (reason) {
+                        $reason.append(reason);
+                    }
+                    $("body").append($modal);
+                    $modal.show();
+                    return $modal;
+                }
                 return {
-                    "show": function(toast, reason, duration) {
-                        $toast.empty();
-                        if (toast) {
-                            $toast.append(toast);
-                        } else {
-                            $toast.append('<i class="fa fa-check"></i>');
-                        }
-                        $reason.empty();
-                        if (reason) {
-                            $reason.append(reason);
-                        }
-                        $("body").append($modal);
-                        $modal.show();
+                    "show": show, 
+                    "flash": function(toast, reason, duration) {
+                        show(toast, reason);
                         duration == -1 || setTimeout(function() {
-                            $toast.empty();
-                            $modal.hide();
-                            $modal.remove();
+                            base.dialog.toast.show();
                         }, duration || 3000);
-                        return $modal;
                     },
                     "hide": function() {
                         $toast.empty();
